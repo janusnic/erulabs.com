@@ -21,8 +21,12 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-x: hidden;
   font-family: 'Flagship';
+  overflow: -moz-scrollbars-none;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar {
@@ -109,11 +113,6 @@ body {
   height:100%;
   min-height:100%;
   font-family: 'Flagship';
-  @media (min-width: @screen-md-min) {
-    .blog {
-
-    }
-  }
   .blog {
     .post {
       .page-header {
@@ -127,6 +126,12 @@ body {
           color: #666;
         }
       }
+    }
+    .end {
+      text-align: center;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      color: #666;
     }
   }
 }
