@@ -1,0 +1,76 @@
+@import 'bootstrap/bootstrap.less';
+@import 'prism.less';
+
+@font-face {
+  font-family: Flagship;
+  src: url('/assets/flagship.otf');
+}
+@font-face {
+  font-family: Adam;
+  src: url('/assets/adam.otf');
+}
+
+html {
+  font-size: 16px;
+  height:100%;
+}
+
+body {
+  font-size: 1em;
+  color: black;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height:100%;
+}
+
+.sitecontainer {
+  height:100%;
+  min-height:100%;
+  font-family: 'Flagship';
+  .sidebar {
+    background-image: url('/assets/office.png');
+    height: 100%;
+    color: #C4C4C4;
+    min-width: 265px;
+    .intro {
+      text-align: right;
+      font-family: 'Adam';
+      .name {
+        font-size: 3em;
+        line-height: 0.9em;
+        padding-top: 25px;
+      }
+      .about {
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        line-height: 2em;
+        margin-top: 25px;
+      }
+    }
+    .bottom {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      text-align: right;
+      padding: 15px;
+    }
+  }
+  .blog {
+    .post {
+      .page-header {
+        text-align: center;
+        h1.title {
+          font-size: 1.5em;
+          margin-bottom: 5px;
+        }
+        small.subtitle {
+          font-size: 0.8em;
+          color: #666;
+        }
+      }
+    }
+  }
+}

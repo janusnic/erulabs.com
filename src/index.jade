@@ -1,0 +1,27 @@
+doctype html
+html(lang='en')
+  head
+    title Erulabs.com
+    meta(charset='UTF-8')
+    link(rel='stylesheet', href=assetURL+'assets/bundle.css')
+  body(data-ng-app='erulabs')
+    .sitecontainer(data-ng-controller='BlogCtrl')
+      .sidebar.col-md-3
+        .intro
+          .name Seandon Mooy
+          ul.about
+            li DevOps Engineer
+            li Fullstack Control-Freak
+            li Javascript Fanboy
+            li Shameless Soapboxer
+            li Hapless Hacker
+            li Game Developer
+        .bottom
+          div Contact me at
+          div
+            a(href='mailto:seandon.mooy@gmail.com') seandon.mooy@gmail.com
+      .blog.col-md-9
+        .post
+          include posts/a_new_site.jade
+
+    script(type='text/javascript', src=assetURL+'assets/bundle.js')
