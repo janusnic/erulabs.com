@@ -5,23 +5,25 @@ html(lang='en')
     meta(charset='UTF-8')
     link(rel='stylesheet', href=assetURL+'assets/bundle.css')
   body(data-ng-app='erulabs')
+    .sidebar.col-md-3
+      .intro
+        .small Hi! I'm
+        .name Seandon Mooy
+        ul.about
+          li DevOps Engineer
+          li Javascript Fanboy
+          li Fullstack Control-Freak
+          li Game Developer
+          li Shameless Soapboxer
+          li Hapless Hacker
+      .bottom
+        div Read my&nbsp;
+          a(href='/resume') resume
+        div then contact me at
+        div
+          a(href='mailto:seandon.mooy@gmail.com') seandon.mooy@gmail.com
     .sitecontainer(data-ng-controller='BlogCtrl')
-      .sidebar.col-md-3
-        .intro
-          .name Seandon Mooy
-          ul.about
-            li DevOps Engineer
-            li Fullstack Control-Freak
-            li Javascript Fanboy
-            li Shameless Soapboxer
-            li Hapless Hacker
-            li Game Developer
-        .bottom
-          div Contact me at
-          div
-            a(href='mailto:seandon.mooy@gmail.com') seandon.mooy@gmail.com
+      .col-md-3 &nbsp;
       .blog.col-md-9
-        .post
-          include posts/a_new_site.jade
-
-    script(type='text/javascript', src=assetURL+'assets/bundle.js')
+        .post(data-ng-include="'/assets/posts/a_new_site.html'")
+    script(async, data-manual, type='text/javascript', src=assetURL+'assets/bundle.js')

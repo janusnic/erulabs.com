@@ -60,6 +60,22 @@ gulp.task('jade', function () {
     .pipe(connect.reload());
 });
 
+gulp.task('articles', function () {
+  return gulp.src('src/posts/*.jade')
+    .pipe(jade({
+      locals: {
+        assetURL: ASSET_URL
+      },
+      pretty: !COMPRESS
+    }))
+    .on('error', function (err) {
+      console.log(err.toString());
+      this.emit('end');
+    })
+    .pipe(gulp.dest('dist/assets/posts'))
+    .pipe(connect.reload());
+});
+
 gulp.task('webpack', function () {
   const stream = gulp.src('./src/index.js')
     .pipe(webpack({
@@ -103,14 +119,15 @@ gulp.task('lint', function () {
 });
 
 gulp.task('default', function () {
-  seq(['less', 'jade', 'webpack', 'client_assets', 'lint']);
+  seq(['articles', 'less', 'jade', 'webpack', 'client_assets', 'lint']);
 });
 
 gulp.task('watch', ['connect'], function () {
   watch(['./src/style/*.less', './src/style/**/*.less'], function () {
     seq('less');
   });
-  watch(['./src/*.jade', './src/posts/*.jade'], function () { seq('jade'); });
+  watch(['./src/*.jade'], function () { seq('jade'); });
+  watch(['./src/posts/*.jade'], function () { seq('articles'); });
   watch(['./src/index.js'], function () { seq('webpack'); });
   watch(['./src/assets/*'], function () { seq('client_assets'); });
 });
