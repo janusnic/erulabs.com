@@ -2,29 +2,20 @@
 'use strict';
 
 const postList = [
-  'a new site',
-  'a new site',
-  'a new site',
-  'a new site',
-  'a new site',
-  'a new site',
-  'a new site',
-  'a new site',
-  'a new site',
+  'post1',
+  'post2'
 ];
 
 const angular = require('angular');
 require('angular-bootstrap');
-require('./vendor/prism.js');
+const Prism = require('./vendor/prism.js');
 
 const ng = angular.module('erulabs', ['ui.bootstrap']);
 
 ng.controller('BlogCtrl', function ($scope, $document, $http, $sce) {
   $scope.posts = [];
-  //let elementCache = {};
+  $scope.foundEnd = false;
   let postsShown = 0;
-  const blogEle = document.getElementById('blog');
-  let bounding = blogEle.getBoundingClientRect();
   let loading = false;
 
   function urlize (string) {
@@ -40,23 +31,29 @@ ng.controller('BlogCtrl', function ($scope, $document, $http, $sce) {
     $http.get(`/assets/posts/${id}.html`).success(function (data, status) {
       if (status === 200) {
         $scope.posts[position] = $sce.trustAsHtml(data);
-        bounding = blogEle.getBoundingClientRect();
+        setTimeout(function () {
+          const eles = document.getElementById(id).getElementsByTagName('pre');
+          for (let i = 0; i < eles.length; i++) {
+            Prism.highlightElement(eles[i]);
+          }
+        }, 0);
         loading = false;
       }
     });
   }
 
-  function loadNextPost () {
-    const next = postList[postsShown];
-    if (next) {
-      loadPost(next, postsShown);
-      postsShown++;
-    } else {
-      $scope.foundEnd = true;
+  function loadNextPosts (n) {
+    if (n === undefined) { n = 1; }
+    for (let i = 0; i < n; i++) {
+      const next = postList[postsShown];
+      if (next) {
+        loadPost(next, postsShown);
+        postsShown++;
+      }
     }
   }
 
-  window.onscroll = function() {
+  window.onscroll = function () {
     let height = Math.max(
       document.body.scrollHeight,
       document.body.offsetHeight,
@@ -64,15 +61,11 @@ ng.controller('BlogCtrl', function ($scope, $document, $http, $sce) {
       document.documentElement.scrollHeight,
       document.documentElement.offsetHeight
     );
-    console.log();
     if (window.pageYOffset + window.innerHeight >= height - 25) {
       if (!loading) {
-        loadNextPost();
+        loadNextPosts();
       }
     }
   };
-
-  loadNextPost();
-  loadNextPost();
-  loadNextPost();
+  loadNextPosts(2);
 });
