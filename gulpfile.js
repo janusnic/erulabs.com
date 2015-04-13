@@ -15,6 +15,7 @@ const watch = require('gulp-watch');
 const webpack = require('gulp-webpack');
 const seq = require('run-sequence');
 const uglify = require('gulp-uglify');
+const ngmin = require('gulp-ngmin');
 
 gulp.task('connect', ['default'], function () {
   connect.server({
@@ -76,6 +77,12 @@ gulp.task('articles', function () {
     .pipe(connect.reload());
 });
 
+gulp.task('posts.json', function () {
+  return gulp.src('./src/posts.json')
+    .pipe(gulp.dest('dist/assets/posts/'))
+    .pipe(connect.reload());
+});
+
 gulp.task('webpack', function () {
   const stream = gulp.src('./src/index.js')
     .pipe(webpack({
@@ -90,7 +97,11 @@ gulp.task('webpack', function () {
       console.log(err.toString());
       this.emit('end');
     });
-  if (COMPRESS) { stream.pipe(uglify()); }
+  if (COMPRESS) {
+    stream
+      .pipe(ngmin())
+      .pipe(uglify());
+  }
   stream.pipe(gulp.dest('dist/assets'))
     .pipe(connect.reload());
 });
@@ -119,7 +130,7 @@ gulp.task('lint', function () {
 });
 
 gulp.task('default', function () {
-  seq(['articles', 'less', 'jade', 'webpack', 'client_assets', 'lint']);
+  seq(['articles', 'posts.json', 'less', 'jade', 'webpack', 'client_assets', 'lint']);
 });
 
 gulp.task('watch', ['connect'], function () {
@@ -130,4 +141,5 @@ gulp.task('watch', ['connect'], function () {
   watch(['./src/posts/*.jade'], function () { seq('articles'); });
   watch(['./src/index.js'], function () { seq('webpack'); });
   watch(['./src/assets/*'], function () { seq('client_assets'); });
+  watch(['./src/posts.json'], function () { seq('posts.json'); });
 });

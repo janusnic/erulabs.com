@@ -4,7 +4,7 @@ My homepage! See http://seandonmooy.com !
 
 ```
 http {
-  proxy_cache_path /var/nginx/cache keys_zone=blog:20m levels=1:2 max_size=40m;
+  proxy_cache_path /var/nginx/cache keys_zone=blog:10m levels=1:2 max_size=20m;
 
   gzip on;
   gzip_disable "msie6";
@@ -19,19 +19,28 @@ http {
     proxy_cache blog;
     proxy_cache_methods GET HEAD POST PUT DELETE;
     add_header X-Proxy-Cache $upstream_cache_status;
-
     charset utf-8;
-    location /assets {
-      try_files $uri $uri/ =404;
+
+    location / {
+      add_header Cache-Control 'public';
+      expires 1w;
+      proxy_cache_valid any 1w;
+    }
+    location ~* \.(png|otf|eot|svg|ttf|woff|woff2|gif|jpg|jpeg)$ {
+      try_files $uri =404;
+      expires 1w;
+      add_header Cache-Control 'no-cache, no-store';
+      access_log off;
+      proxy_cache_valid any 1w;
+    }
+    location ^~ /assets/posts/ {
+      try_files $uri =404;
       expires 1h;
-      add_header Cache-Control "public";
+      add_header Cache-Control 'no-cache, no-store';
       access_log off;
       proxy_cache_valid any 1h;
     }
-    location / {
-      expires -1;
-      proxy_cache_valid any 5m;
-    }
+
     try_files $uri index.html;
   }
 }

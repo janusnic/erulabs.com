@@ -23,6 +23,7 @@ body {
   height: 100%;
   font-family: 'Flagship';
   overflow: -moz-scrollbars-none;
+  min-width: 340px;
 }
 
 ::-webkit-scrollbar {
@@ -54,32 +55,42 @@ body {
   }
 }
 
+@media (min-width: 1300px) {
+  .name {
+    font-size: 2.6em !important;
+  }
+  .about {
+    font-size: 1.2em !important;
+  }
+}
+
 @media (min-width: @screen-md-min) {
   .sidebar {
     height: 100%;
     position: fixed;
     top: 0;
     left: 0;
+    padding-left: 0px;
     .intro {
       text-align: right;
       .small {
         text-align: right;
       }
       .name {
-        font-size: 3em;
+        font-size: 2.2em;
         line-height: 1.2em;
         padding-top: 0px;
       }
       .about {
+        font-size: 0.8em;
       }
     }
     .bottom {
       text-align: right;
-      position: absolute;
-      bottom: 0px;
-      left: 0px;
+      margin-top: 4em;
       width: 100%;
-      padding: 15px;
+      padding-top: 15px;
+      padding-bottom: 15px;
     }
   }
 }
@@ -121,7 +132,7 @@ body {
           font-size: 1.5em;
           margin-bottom: 5px;
         }
-        small.subtitle {
+        .subtitle {
           font-size: 0.8em;
           color: #666;
         }

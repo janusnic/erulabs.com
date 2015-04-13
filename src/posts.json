@@ -1,0 +1,12 @@
+{
+  "posts": [
+    {
+      "name": "post1",
+      "categories": ["test", "foo", "bar"]
+    },
+    {
+      "name": "post2",
+      "categories": []
+    }
+  ]
+}
