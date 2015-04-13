@@ -1,7 +1,7 @@
 {
   "posts": {
     "Developing_and_deploying_static_sites_with_GulpJS_and_the_Cloud": {
-      "categories": ["test", "foo", "bar"],
+      "categories": ["devops", "javascript", "fullstack"],
       "date": "June 10, 2014"
     }
   }
