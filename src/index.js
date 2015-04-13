@@ -18,14 +18,14 @@ ng.controller('BlogCtrl', function ($scope, $document, $http, $sce) {
   let postsShown = 0;
   let loading = false;
 
-  function urlize (string) {
+  $scope.urlize = function urlize (string) {
     return string
       .replace(/ /g, '_')
       .replace(/(\!|\"|\')/g, '');
-  }
+  };
 
   function loadPost (postObj, position) {
-    const id = urlize(postObj.name);
+    const id = $scope.urlize(postObj.name);
     if (position === undefined) {
       position = $scope.posts.length;
     }

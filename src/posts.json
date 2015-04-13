@@ -1,7 +1,7 @@
 {
   "posts": [
     {
-      "name": "post1",
+      "name": "The state of the Static Site in 2015",
       "categories": ["test", "foo", "bar"]
     },
     {

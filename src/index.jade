@@ -11,7 +11,15 @@ html(lang='en')
         .sidebar.col-md-2
           .intro
             .small Hi! I'm
-            .name Seandon Mooy
+            .name
+              div
+                span Seand
+                span.glyphicon.glyphicon-off
+                span n
+              span M
+              span oo
+              span y
+            .small and I am a
             ul.about
               li
                 a(href='/devops/') DevOps Engineer
@@ -22,14 +30,16 @@ html(lang='en')
               li
                 a(href='/gamedev/') Game Developer
               li
+                a(href='/linux/') Linux Nerd
+              li
                 a(href='/rants/') Raving Ranter
               li
                 a(href='/hacker/') Hapless Hacker
-          .bottom
-            div Read my&nbsp;
-              a(href='/resume') resume
-            div then&nbsp;
-              a(href='mailto:seandon.mooy@gmail.com') contact me
+            .bottom
+              div Read my&nbsp;
+                a(href='/resume') resume
+              div then&nbsp;
+                a(href='mailto:seandon.mooy@gmail.com') contact me
       .row
         #blog.sitecontainer(data-ng-controller='BlogCtrl')
           .col-md-2 &nbsp;
@@ -37,14 +47,14 @@ html(lang='en')
             .post(data-ng-repeat="post in posts")
               .page-header
                 h1.title
-                  a(href="/{{ post.title }}") {{ post.title }}
+                  a(href="/{{ urlize(post.title) }}") {{ post.title }}
                 .subtitle
                   span(data-ng-show="post.categories.length")
                     span in
                     span(data-ng-repeat="(i, cat) in post.categories")
                       span &nbsp;
                       span(data-ng-hide="i === post.categories.length-2") and&nbsp;
-                      a(href="/{{ cat }}") {{ cat }}
+                      a(href="/{{ urlize(cat) }}") {{ cat }}
                       span(data-ng-hide="i > post.categories.length-3") ,
                   span &nbsp;by Seandon Mooy - {{ post.date }}
               .post-body(data-ng-bind-html="post.html")
