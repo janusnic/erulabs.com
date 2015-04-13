@@ -11,7 +11,7 @@ html(lang='en')
         .sidebar.col-md-2
           .intro
             .small Hi! I'm
-            .name
+            a.name(href='/')
               div
                 span Seand
                 span.glyphicon.glyphicon-off
@@ -44,19 +44,21 @@ html(lang='en')
         #blog.sitecontainer(data-ng-controller='BlogCtrl')
           .col-md-2 &nbsp;
           .blog.col-md-10
-            .post(data-ng-repeat="post in posts")
+            .sorry(data-ng-show="sorry")
+              div Sorry,
+              div {{ sorry }}
+            .post(data-ng-repeat="(title, post) in postList", data-ng-show="post.visible")
               .page-header
                 h1.title
-                  a(href="/{{ urlize(post.title) }}") {{ post.title }}
+                  a(href="/{{ urlize(title) }}") {{ unurlize(title) }}
                 .subtitle
                   span(data-ng-show="post.categories.length")
                     span in
                     span(data-ng-repeat="(i, cat) in post.categories")
                       span &nbsp;
-                      span(data-ng-hide="i === post.categories.length-2") and&nbsp;
-                      a(href="/{{ urlize(cat) }}") {{ cat }}
+                      span(data-ng-hide="i < post.categories.length-1") and&nbsp;
+                      a(href="/{{ urlize(cat) }}") /{{ cat }}
                       span(data-ng-hide="i > post.categories.length-3") ,
                   span &nbsp;by Seandon Mooy - {{ post.date }}
               .post-body(data-ng-bind-html="post.html")
-            .end Sorry, there are no more posts! Check back soon :)
     script(async, data-manual, type='text/javascript', src=assetURL+'assets/bundle.js')

@@ -1,12 +1,8 @@
 {
-  "posts": [
-    {
-      "name": "The state of the Static Site in 2015",
-      "categories": ["test", "foo", "bar"]
-    },
-    {
-      "name": "post2",
-      "categories": []
+  "posts": {
+    "Developing_and_deploying_static_sites_with_GulpJS_and_the_Cloud": {
+      "categories": ["test", "foo", "bar"],
+      "date": "June 10, 2014"
     }
-  ]
+  }
 }
