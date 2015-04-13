@@ -106,7 +106,9 @@ ng.controller('BlogCtrl', function ($scope, $document, $http, $sce) {
 
     let query = window.location.pathname.split('/')[1];
     if (query) {
-      if ($scope.postList[query]) {
+      if (query === 'resume') {
+        $scope.resume = true;
+      } else if ($scope.postList[query]) {
         loadPost({
           name: query
         }, 0, function () {

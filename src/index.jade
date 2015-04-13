@@ -43,7 +43,9 @@ html(lang='en')
       .row
         #blog.sitecontainer(data-ng-controller='BlogCtrl')
           .col-md-2 &nbsp;
-          .blog.col-md-10
+          .resume.col-md-10(data-ng-show="resume")
+            include ./resume.jade
+          .blog.col-md-10(data-ng-hide="resume")
             .sorry(data-ng-show="sorry")
               div Sorry,
               div {{ sorry }}
