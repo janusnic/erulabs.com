@@ -20,12 +20,13 @@ http {
     proxy_cache_methods GET HEAD POST;
     add_header X-Proxy-Cache $upstream_cache_status;
     charset utf-8;
+    etag on;
+    expires 1d;
+    proxy_cache_valid any 1d;
 
-    location ~* \.(png|otf|eot|svg|ttf|woff|woff2|gif|jpg|jpeg)$ {
-      expires 1w;
-      add_header Cache-Control 'no-cache, no-store';
+    location ~* \.(png|otf|eot|svg|ttf|woff|woff2|gif|jpg|jpeg|js|css)$ {
+      add_header Cache-Control 'public';
       access_log off;
-      proxy_cache_valid any 1w;
       try_files $uri =404;
     }
     location ^~ /assets/posts/ {
@@ -37,8 +38,6 @@ http {
     }
     location / {
       add_header Cache-Control 'public';
-      expires 1w;
-      proxy_cache_valid any 1w;
       try_files $uri /index.html;
     }
   }
