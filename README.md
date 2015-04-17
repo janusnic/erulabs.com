@@ -2,43 +2,31 @@
 
 My homepage! See http://seandonmooy.com !
 
+
+todos:
+  GA
+  Disqus
+  twitter/facebook icons on blog posts
+  - write two posts
+  - migrate drupal post
+
+
 ```
-http {
-  proxy_cache_path /var/nginx/cache keys_zone=blog:10m levels=1:2 max_size=20m;
+server {
+  charset utf-8;
+  etag on;
+  expires 1w;
 
-  gzip on;
-  gzip_disable "msie6";
-  gzip_vary on;
-  gzip_proxied any;
-  gzip_comp_level 6;
-  gzip_buffers 16 8k;
-  gzip_http_version 1.1;
-  gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
-
-  server {
-    proxy_cache blog;
-    proxy_cache_methods GET HEAD POST;
-    add_header X-Proxy-Cache $upstream_cache_status;
-    charset utf-8;
-    etag on;
-    expires 1d;
-    proxy_cache_valid any 1d;
-
-    location ~* \.(png|otf|eot|svg|ttf|woff|woff2|gif|jpg|jpeg|js|css)$ {
-      add_header Cache-Control 'public';
-      access_log off;
-      try_files $uri =404;
-    }
-    location ^~ /assets/posts/ {
-      expires 1h;
-      add_header Cache-Control 'no-cache, no-store';
-      access_log off;
-      proxy_cache_valid any 1h;
-      try_files $uri =404;
-    }
-    location / {
-      add_header Cache-Control 'public';
-      try_files $uri /index.html;
-    }
+  location ~* \.(png|otf|eot|svg|ttf|woff|woff2|gif|jpg|jpeg|js|css)$ {
+    add_header Cache-Control 'public';
+    access_log off;
+  }
+  location ^~ /assets/posts/ {
+    expires 1h;
+    access_log off;
+  }
+  location / {
+    try_files $uri /index.html;
   }
 }
+```
